@@ -10,7 +10,45 @@ import Foundation
 extension Hero {
     
     func planetData(dataFile: String) -> String {
-        return ""
+        var planetNameWithTheMostIntriguingItems = String()
+        var planetScoreWithTheMostIntriguingItems = Int()
+        
+        let planetsJSON = NSBundle.mainBundle().URLForResource("PlanetData", withExtension: "json")!
+        let rawPlanetJSON = NSData(contentsOfURL: planetsJSON)!
+        
+        var planetsArray: [[String: AnyObject]]
+        do {
+            planetsArray = try! NSJSONSerialization.JSONObjectWithData(rawPlanetJSON, options: NSJSONReadingOptions()) as! [[String: AnyObject]]
+        }
+        
+        for planetDict in planetsArray {
+            let planetScore = planetIntriguingScore(planetDict)
+            if planetScore > planetScoreWithTheMostIntriguingItems {
+                planetNameWithTheMostIntriguingItems = planetDict["Name"] as! String
+                planetScoreWithTheMostIntriguingItems = planetScore
+            }
+        }
+        
+        return planetNameWithTheMostIntriguingItems
+    }
+    
+    func planetIntriguingScore(planetDictionary: [String: AnyObject]) -> Int {
+        var planetScore: Int = 0
+        
+        if let commonItemsDetected = planetDictionary["CommonItemsDetected"] as? Int {
+            planetScore += commonItemsDetected
+        }
+        if let uncommonItemsDetected = planetDictionary["UncommonItemsDetected"] as? Int {
+            planetScore += uncommonItemsDetected * 2
+        }
+        if let rareItemsDetected = planetDictionary["RareItemsDetected"] as? Int {
+            planetScore += rareItemsDetected * 3
+        }
+        if let legendaryItemsDetected = planetDictionary["LegendaryItemsDetected"] as? Int {
+            planetScore += legendaryItemsDetected * 4
+        }
+        
+        return planetScore
     }
 }
 

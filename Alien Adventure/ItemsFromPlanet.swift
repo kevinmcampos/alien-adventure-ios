@@ -10,11 +10,10 @@ extension Hero {
     
     func itemsFromPlanet(inventory: [UDItem], planet: String) -> [UDItem] {
         var itemsFromPlanet = [UDItem]()
+        
         for item in inventory {
-            if let planetOfOrigin = item.historicalData["PlanetOfOrigin"] {
-                if (planetOfOrigin as? String == planet) {
-                    itemsFromPlanet.append(item)
-                }
+            if let planetOfOrigin = item.historicalData["PlanetOfOrigin"] as? String where planetOfOrigin == planet {
+                itemsFromPlanet.append(item)
             }
         }
         

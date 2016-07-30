@@ -14,14 +14,18 @@ extension Hero {
             return nil
         }
         
-        var leastValuableItem = inventory[0]
+        var resultLeastValuableItem: UDItem?
         for item in inventory {
-            if item.baseValue < leastValuableItem.baseValue {
-                leastValuableItem = item
+            if let leastValuableItem = resultLeastValuableItem {
+                if item.baseValue < leastValuableItem.baseValue {
+                    resultLeastValuableItem = item
+                }
+            } else {
+                resultLeastValuableItem = item
             }
         }
         
-        return leastValuableItem
+        return resultLeastValuableItem
     }
 }
 
