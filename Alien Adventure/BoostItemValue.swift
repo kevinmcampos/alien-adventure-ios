@@ -9,7 +9,14 @@
 extension Hero {
     
     func boostItemValue(inventory: [UDItem]) -> [UDItem] {
-        return [UDItem]()
+        
+//        MARK: Readable solution
+//        let inventoryBoosted = inventory.map({(item: UDItem) -> UDItem in
+//            return UDItem(itemID: item.itemID, itemType: item.itemType, name: item.name, baseValue: item.baseValue + 100, inscription: item.inscription, rarity: item.rarity, historicalData: item.historicalData)
+//        })
+        
+//        MARK: One-line confusing solution
+        return inventory.map({UDItem(itemID: $0.itemID, itemType: $0.itemType, name: $0.name, baseValue: $0.baseValue + 100, inscription: $0.inscription, rarity: $0.rarity, historicalData: $0.historicalData)})
     }
 }
 
