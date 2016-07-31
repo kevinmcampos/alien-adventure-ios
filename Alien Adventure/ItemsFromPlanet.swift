@@ -12,7 +12,7 @@ extension Hero {
         var itemsFromPlanet = [UDItem]()
         
         for item in inventory {
-            if let planetOfOrigin = item.historicalData["PlanetOfOrigin"] as? String where planetOfOrigin == planet {
+            if let planetOfOrigin = (item.historicalData["PlanetOfOrigin"] as? String)?.lowercaseString where planetOfOrigin == planet.lowercaseString {
                 itemsFromPlanet.append(item)
             }
         }

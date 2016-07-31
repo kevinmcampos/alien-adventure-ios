@@ -11,7 +11,6 @@ import Foundation
 extension Hero {
     
     func xorCipherKeySearch(encryptedString: [UInt8]) -> UInt8 {
-        var key: UInt8 = 0
         
         for x in UInt8.min..<UInt8.max {
             
@@ -22,11 +21,11 @@ extension Hero {
             }
             
             if let decryptedString = String(bytes: decrypted, encoding: NSUTF8StringEncoding) where decryptedString == "udacity" {
-                key = x
+                return x
             }
         }
         
-        return key
+        return 0
     }
 }
 
